@@ -30,16 +30,18 @@ io.on("connection", (socket) => {
     });
 
     //send and get message
-    socket.on("sendMessage", ({ senderId, receiverId, message, fileSent }) => {
+    socket.on("sendMessage", ({ senderId, receiverId, message, fileSent, conversationId }) => {
         const user = getUser(receiverId);
         console.log(senderId);
         console.log(user);
         console.log(receiverId);
         console.log(fileSent);
+        console.log(conversationId);
         io.to(user?.socketId).emit("getMessage", {
             senderId,
             message,
-            fileSent
+            fileSent,
+            conversationId
         });
     });
 
