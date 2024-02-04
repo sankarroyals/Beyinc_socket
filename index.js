@@ -46,6 +46,20 @@ io.on("connection", (socket) => {
     });
 
 
+    socket.on("seenMessage", ({ senderId, receiverId, conversationId }) => {
+        const user = getUser(receiverId);
+        console.log(senderId);
+        console.log(receiverId);
+        console.log({ message: 'seen just now' });
+        console.log(user?.socketId);
+        io.to(user?.socketId).emit("sendseenMessage", {
+            senderId, receiverId,
+            conversationId,
+            message: 'seen just now'
+        });
+    });
+
+
     socket.on("sendNotification", ({ senderId, receiverId }) => {
         const user = getUser(receiverId);
         console.log(user);
