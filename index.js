@@ -60,6 +60,14 @@ io.on("connection", (socket) => {
     });
 
 
+    socket.on("chatBlocking", ({ senderId, receiverId }) => {
+        const user = getUser(receiverId);
+        io.to(user?.socketId).emit("sendchatBlockingInfo", {
+            senderId, receiverId,
+        });
+    });
+
+
     socket.on("sendNotification", ({ senderId, receiverId }) => {
         const user = getUser(receiverId);
         console.log(user);
